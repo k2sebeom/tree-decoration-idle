@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import treeImg from './assets/images/tree.png'
+import React, { useCallback, useEffect, useState } from 'react';
 import Ornament from './components/Ornament';
 import { OrnamentInfo } from './models/ornament';
+import Tree from './components/Tree';
+import { NAME_MAPPING } from './utils/ornaments';
 
 
 function App() {
@@ -11,18 +12,34 @@ function App() {
     setOrnaments(prev => [...prev, o]);
   }, [setOrnaments])
 
+  useEffect(() => {
+    if(ornaments.length > 0) {
+      localStorage.setItem('save', JSON.stringify(ornaments));
+    }
+  }, [ornaments]);
+
+  useEffect(() => {
+    const cache = localStorage.getItem('save');
+    if(cache !== null) {
+      setOrnaments(JSON.parse(cache));
+    }
+  }, []);
+
   return (
     <div className="container" style={{
       backgroundColor: '#DEA270',
     }}>
-      <img
-        width={400}
-        src={treeImg}
-        alt='tree'
-      />
+      <Tree />
 
-      <Ornament type='source' addOrnament={addOrnament} name='cane1' x={0} y={100} />
-
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(10, 1fr)'
+      }}>
+        {Object.keys(NAME_MAPPING).map((name) => (
+          <Ornament key={name} type='source' addOrnament={addOrnament} name={name} x={0} y={100} />
+        ))}
+      </div>
+  
       {
         ornaments.map((o, i) => {
           return (

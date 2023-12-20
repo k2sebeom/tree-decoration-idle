@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 
-
-import cane1Img from '../assets/props/cane.png'
 import { OrnamentInfo } from '../models/ornament';
-
-
-export const NAME_MAPPING: Record<string, OrnamentType> = {
-    'cane1': {
-      source: cane1Img,
-      width: 50,
-    },
-}
+import { NAME_MAPPING } from '../utils/ornaments';
 
 interface OrnamentProps {
     name: string;
@@ -19,11 +10,6 @@ interface OrnamentProps {
     type: 'static' | 'source';
     addOrnament?: ((o: OrnamentInfo) => void);
     onMove?: ((x: number, y: number) => void);
-}
-
-interface OrnamentType {
-  source: string;
-  width: number;
 }
 
 function Ornament({ name, x, y, type, onMove, addOrnament }: OrnamentProps) {
