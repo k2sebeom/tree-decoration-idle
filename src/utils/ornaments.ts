@@ -46,11 +46,16 @@ import gift5 from '../assets/props/gift5.png'
 
 import plant1 from '../assets/props/plant1.png'
 
+import sock1 from '../assets/props/sock1.png';
+import sock2 from '../assets/props/sock2.png';
+import sock3 from '../assets/props/sock3.png';
+
 import candle1 from '../assets/props/candle1.png'
 
 import star1 from '../assets/props/star1.png';
-import star2 from '../assets/props/star2.png'
-import star3 from '../assets/props/star3.png'
+import star2 from '../assets/props/star2.png';
+import star3 from '../assets/props/star3.png';
+import star4 from '../assets/props/star4.png';
 
 import tree1 from '../assets/props/tree1.png';
 import tree2 from '../assets/props/tree2.png'
@@ -218,6 +223,19 @@ export const NAME_MAPPING: Record<string, OrnamentType> = {
       width: 35,
     },
 
+    'sock1': {
+      source: sock1,
+      width: 30,
+    },
+    'sock2': {
+      source: sock2,
+      width: 25,
+    },
+    'sock3': {
+      source: sock3,
+      width: 28,
+    },
+
     'gift1': {
       source: gift1,
       width: 35,
@@ -250,5 +268,9 @@ export const NAME_MAPPING: Record<string, OrnamentType> = {
     'star3': {
       source: star3,
       width: 35,
+    },
+    'star4': {
+      source: star4,
+      width: 30,
     },
 }
