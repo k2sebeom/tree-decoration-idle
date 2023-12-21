@@ -6,6 +6,8 @@ import { NAME_MAPPING } from './utils/ornaments';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Pallette, { PalletteCell } from './components/Pallette';
+import Lottie from 'react-lottie'
+import snowAnim from './assets/snow.json';
 
 import ClearButton from './components/ClearButton';
 import TrashArea from './components/TrashArea';
@@ -45,6 +47,23 @@ function App() {
         height: menuActive ? 850 : 420,
       }}>
         <Tree />
+        {
+          menuActive ? null :
+          <Lottie
+            options={{
+              loop: true,
+              autoplay: true,
+              animationData: snowAnim,
+            }}
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+            }}
+            height={420}
+            width={400}
+          />
+        }
 
         <ClearButton onClick={() => {
           localStorage.removeItem('save');
