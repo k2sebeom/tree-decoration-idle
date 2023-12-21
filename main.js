@@ -23,6 +23,7 @@ const createWindow = () => {
     height: 850,
     frame: false,
     autoHideMenuBar: true,
+    skipTaskbar: true,
     backgroundColor: '#00FFFFFF',
     transparent: true,
     resizable: false,
@@ -33,16 +34,14 @@ const createWindow = () => {
   });
 
   win.on('blur', () => {
-    const [w, h] = win.getSize();
     setTimeout(() => {
-      win.setSize(w, 420);
+      win.setSize(400, 420);
     }, 1000);
     win.webContents.send("active-change", false);
   });
 
   win.on('focus', () => {
-    const [w, h] = win.getSize();
-    win.setSize(w, 850);
+    win.setSize(400, 850);
     win.webContents.send("active-change", true);
   });
 
@@ -50,14 +49,14 @@ const createWindow = () => {
 }
 
 app.whenReady().then(() => {
-//   const tray = new Tray(path.join(resourcePath, 'assets', 'trayicon.png'));
-//   tray.setToolTip('Waiting for Christmas...');
-//   const contextMenu = Menu.buildFromTemplate([
-//     { label: 'Quit', type: 'normal', click: (menuItem, window, event) => {
-//       app.quit()
-//     }},
-//   ])
-//   tray.setContextMenu(contextMenu);
+  const tray = new Tray(path.join(resourcePath, 'assets', 'trayicon.png'));
+  tray.setToolTip('Waiting for Christmas...');
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Quit', type: 'normal', click: (menuItem, window, event) => {
+      app.quit()
+    }},
+  ])
+  tray.setContextMenu(contextMenu);
 
   createWindow();
 })

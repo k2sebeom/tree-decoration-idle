@@ -17,6 +17,7 @@ img {
 }
 
 .container {
+  -webkit-app-region: drag;
   width: 400px;
 
   position: relative;
@@ -40,6 +41,7 @@ img {
   margin-top: 30px;
   margin-bottom: 10px;
   box-sizing: border-box;
+  -webkit-app-region: no-drag;
 }
 
 .grid-item {
@@ -48,12 +50,19 @@ img {
   padding: 3px;
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.25);
   text-align: center;
+  -webkit-app-region: no-drag;
 }
 
 .moveButton {
   transition: left 0.5s ease-out;
+  -webkit-app-region: no-drag;
 }
 
 .moveArea {
   transition: right 0.5s ease-out;
+  -webkit-app-region: no-drag;
+}
+
+.prop {
+  -webkit-app-region: no-drag;
 }
