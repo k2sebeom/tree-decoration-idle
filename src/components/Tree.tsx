@@ -22,7 +22,7 @@ function Tree() {
         src={treeImg}
         alt='tree'
         style={{
-            pointerEvents: 'none',
+          pointerEvents: 'none',
         }}
       />
     </div>

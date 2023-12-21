@@ -15,8 +15,11 @@ interface OrnamentProps {
 }
 
 function Ornament({ name, x, y, type, onMove, addOrnament }: OrnamentProps) {
-  const [, drag] = useDrag(() => ({
+  const [{ opacity }, drag] = useDrag(() => ({
     type: ItemTypes.ORNAMENT,
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0 : 1,
+    }),
     end: (_, monitor) => {
       const result = monitor.getDropResult() as DropResult;
       
@@ -46,6 +49,7 @@ function Ornament({ name, x, y, type, onMove, addOrnament }: OrnamentProps) {
           width: NAME_MAPPING[name].width,
           left: x,
           top: y,
+          opacity,
           position: type === 'source' ? 'static' : 'absolute',
         }}
       />
