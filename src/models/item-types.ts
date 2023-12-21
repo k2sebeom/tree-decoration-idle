@@ -4,6 +4,7 @@ export const ItemTypes = {
 
 interface DropResult {
     name: string;
+    action: 'place' | 'delete';
     x: number;
     y: number;
 }

@@ -7,6 +7,9 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Pallette, { PalletteCell } from './components/Pallette';
 
+import ClearButton from './components/ClearButton';
+import TrashArea from './components/TrashArea';
+
 
 function App() {
   const [ornaments, setOrnaments] = useState<OrnamentInfo[]>([]);
@@ -35,6 +38,13 @@ function App() {
       }}>
         <Tree />
 
+        <ClearButton onClick={() => {
+          localStorage.removeItem('save');
+          setOrnaments([]);
+        }} />
+
+        <TrashArea />
+
         <Pallette>
           {Object.keys(NAME_MAPPING).map((name) => (
             <PalletteCell key={name}>
@@ -46,14 +56,25 @@ function App() {
         {
           ornaments.map((o, i) => {
             return (
-              <Ornament onMove={(x, y) => {
-                setOrnaments(prev => {
-                  const newOrn = [...prev];
-                  newOrn[i].x = x;
-                  newOrn[i].y = y;
-                  return newOrn;
-                })
-              }} type='static' addOrnament={addOrnament} key={`orn-${i}`} name={o.name} x={o.x} y={o.y} />
+              <Ornament
+                onMove={(x, y) => {
+                  setOrnaments(prev => {
+                    const newOrn = [...prev];
+                    newOrn[i].x = x;
+                    newOrn[i].y = y;
+                    return newOrn;
+                  })
+                }}
+                type='static'
+                addOrnament={addOrnament}
+                deleteOrnament={() => {
+                  setOrnaments(prev => prev.filter((_, idx) => idx !== i))
+                }}
+                key={`orn-${i}`}
+                name={o.name}
+                x={o.x}
+                y={o.y}
+              />
             )
           })
         }

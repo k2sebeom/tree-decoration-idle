@@ -11,10 +11,11 @@ interface OrnamentProps {
     y: number;
     type: 'static' | 'source';
     addOrnament?: ((o: OrnamentInfo) => void);
+    deleteOrnament?: () => void;
     onMove?: ((x: number, y: number) => void);
 }
 
-function Ornament({ name, x, y, type, onMove, addOrnament }: OrnamentProps) {
+function Ornament({ name, x, y, type, onMove, addOrnament, deleteOrnament }: OrnamentProps) {
   const [{ opacity }, drag] = useDrag(() => ({
     type: ItemTypes.ORNAMENT,
     collect: (monitor) => ({
@@ -24,14 +25,20 @@ function Ornament({ name, x, y, type, onMove, addOrnament }: OrnamentProps) {
       const result = monitor.getDropResult() as DropResult;
       
       if(result) {
-        if(type === 'source' && addOrnament) {
-          addOrnament({
-            name,
-            x: result.x,
-            y: result.y,
-          })
-        } else if (type === 'static' && onMove) {
-          onMove(result.x, result.y);
+        if(result.action === 'place') {
+          if(type === 'source' && addOrnament) {
+            addOrnament({
+              name,
+              x: result.x,
+              y: result.y,
+            })
+          } else if (type === 'static' && onMove) {
+            onMove(result.x, result.y);
+          }
+        } else if(result.action === 'delete') {
+          if(type === 'static' && deleteOrnament) {
+            deleteOrnament();
+          } 
         }
       }
     }

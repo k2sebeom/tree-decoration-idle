@@ -1,34 +1,37 @@
 import React from 'react';
-import treeImg from '../assets/images/tree.png'
+import trashImg from '../assets/images/delete.png';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../models/item-types';
 
 
-function Tree() {
+function TrashArea() {
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.ORNAMENT,
     drop: (_, monitor) => {
       const offset = monitor.getSourceClientOffset();
       return {
-        action: 'place',
+        action: 'delete',
         ...offset,
       };
     },
   }))
 
   return (
-    <div ref={drop}>
+    <div
+      ref={drop}
+    >
       <img
-        width={400}
-        src={treeImg}
-        alt='tree'
+        alt='trash'
+        src={trashImg}
+        width={48}
         style={{
-          pointerEvents: 'none',
-          marginBottom: 10,
+          position: 'absolute',
+          top: 5,
+          right: 5,
         }}
       />
     </div>
   )
 }
 
-export default Tree;
+export default TrashArea;
