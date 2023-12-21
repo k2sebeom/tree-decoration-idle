@@ -31,12 +31,11 @@ function App() {
     }}>
       <Tree />
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(10, 1fr)'
-      }}>
+      <div className='grid-container'>
         {Object.keys(NAME_MAPPING).map((name) => (
-          <Ornament key={name} type='source' addOrnament={addOrnament} name={name} x={0} y={100} />
+          <div className='grid-item' key={name}>
+            <Ornament type='source' addOrnament={addOrnament} name={name} x={0} y={100} />
+          </div>
         ))}
       </div>
   

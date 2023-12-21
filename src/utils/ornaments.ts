@@ -63,7 +63,7 @@ interface OrnamentType {
 export const NAME_MAPPING: Record<string, OrnamentType> = {
     'cane1': {
       source: cane1Img,
-      width: 50,
+      width: 35,
     },
 
     'candle1': {
