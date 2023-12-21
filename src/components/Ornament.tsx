@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { OrnamentInfo } from '../models/ornament';
 import { NAME_MAPPING } from '../utils/ornaments';
+import { useDrag } from 'react-dnd';
+import { DropResult, ItemTypes } from '../models/item-types';
 
 interface OrnamentProps {
     name: string;
@@ -13,48 +15,40 @@ interface OrnamentProps {
 }
 
 function Ornament({ name, x, y, type, onMove, addOrnament }: OrnamentProps) {
-  const [w, setW] = useState<number>(0);
-  const [h, setH] = useState<number>(0);
-
-  return (
-    <img
-      className='prop'
-      src={NAME_MAPPING[name].source}
-      alt={name}
-      style={{
-        width: NAME_MAPPING[name].width,
-        left: x,
-        top: y,
-        position: type === 'source' ? 'static' : 'absolute',
-      }}
-      onDragOver={(e) => {
-        e.preventDefault();
-      }}
-      onDragEnter={(e) => {
-        const rect = (e.target as HTMLImageElement).getBoundingClientRect();
-        setW(e.clientX - rect.x);
-        setH(e.clientY - rect.y);
-      }}
-      onDragEnd={(e) => {
-        if(type === 'source' && addOrnament !== undefined) {
+  const [, drag] = useDrag(() => ({
+    type: ItemTypes.ORNAMENT,
+    end: (_, monitor) => {
+      const result = monitor.getDropResult() as DropResult;
+      
+      if(result) {
+        if(type === 'source' && addOrnament) {
           addOrnament({
             name,
-            x: e.clientX - w,
-            y: e.clientY - h,
+            x: result.x,
+            y: result.y,
           })
-        } else if(type === 'static' && onMove !== undefined) {
-          onMove(e.clientX - w, e.clientY - h);
+        } else if (type === 'static' && onMove) {
+          onMove(result.x, result.y);
         }
-      }}
-      onDrag={(e) => {
-        if(type === 'static' && onMove !== undefined) {
-          e.preventDefault();
-          if(e.clientX - w >= 0 && e.clientY - h >= 0) {
-            onMove(e.clientX - w, e.clientY - h);
-          }
-        }
-      }}
-    />
+      }
+    }
+  }));
+
+  return (
+      <img
+        ref={drag}
+        className='prop'
+        src={NAME_MAPPING[name].source}
+        alt={name}
+        style={{
+          backgroundColor: 'transparent',
+          transform: 'translate(0, 0)',
+          width: NAME_MAPPING[name].width,
+          left: x,
+          top: y,
+          position: type === 'source' ? 'static' : 'absolute',
+        }}
+      />
   )
 }
 
