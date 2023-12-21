@@ -12,6 +12,7 @@ import TrashArea from './components/TrashArea';
 
 
 function App() {
+  const [menuActive, setMenuActive] = useState<boolean>(false);
   const [ornaments, setOrnaments] = useState<OrnamentInfo[]>([]);
 
   const addOrnament = useCallback((o: OrnamentInfo): void => {
@@ -29,21 +30,26 @@ function App() {
     if(cache !== null) {
       setOrnaments(JSON.parse(cache));
     }
+    setTimeout(() => {
+      setMenuActive(true);
+    }, 500)
+    
   }, []);
 
   return (
     <DndProvider backend={HTML5Backend}>
       <div className='container' style={{
-        backgroundColor: '#DEA270',
+        backgroundColor: menuActive ? '#DEA270' : 'transparent',
+        height: menuActive ? 850 : 420,
       }}>
         <Tree />
 
         <ClearButton onClick={() => {
           localStorage.removeItem('save');
           setOrnaments([]);
-        }} />
+        }} isActive={menuActive} />
 
-        <TrashArea />
+        <TrashArea isActive={menuActive} />
 
         <Pallette>
           {Object.keys(NAME_MAPPING).map((name) => (

@@ -3,21 +3,30 @@ import clearImg from '../assets/images/clear.png';
 
 interface ClearButtonProps {
     onClick: React.MouseEventHandler<HTMLImageElement>;
+    isActive: boolean;
 }
 
-function ClearButton({onClick}: ClearButtonProps) {
+function ClearButton({onClick, isActive}: ClearButtonProps) {
+
   return (
-    <img
-      alt='clear'
-      src={clearImg}
-      width={48}
+    <div
+      className='moveButton'
+      onClick={onClick}
       style={{
         position: 'absolute',
         top: 5,
-        left: 5,
+        left: isActive ? 5 : -60,
       }}
-      onClick={onClick}
-    />
+    >
+      <img
+        alt='clear'
+        src={clearImg}
+        width={48}
+        style={{
+          pointerEvents: 'none',
+        }}
+      />
+    </div>
   )
 }
 
