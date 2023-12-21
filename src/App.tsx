@@ -30,10 +30,12 @@ function App() {
     if(cache !== null) {
       setOrnaments(JSON.parse(cache));
     }
-    setTimeout(() => {
-      setMenuActive(true);
-    }, 500)
-    
+
+    if(window.context !== undefined) {
+      window.context.onActiveChange((status) => {
+        setMenuActive(status);
+      })
+    }
   }, []);
 
   return (

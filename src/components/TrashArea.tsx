@@ -34,6 +34,9 @@ function TrashArea({ isActive }: TrashAreaProps) {
         alt='trash'
         src={trashImg}
         width={48}
+        style={{
+          pointerEvents: 'none',
+        }}
       />
     </div>
   )
