@@ -49,7 +49,7 @@ function Ornament({ name, x, y, type, onMove, addOrnament }: OrnamentProps) {
           width: NAME_MAPPING[name].width,
           left: x,
           top: y,
-          opacity,
+          opacity: type === 'source' ? 1 : opacity,
           position: type === 'source' ? 'static' : 'absolute',
         }}
       />

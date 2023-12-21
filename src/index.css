@@ -15,10 +15,7 @@ code {
 .container {
   width: 400px;
   /* height: 400px; */
-
   overflow: hidden;
-
-  position: relative;
 }
 
 .grid-container {
@@ -31,6 +28,7 @@ code {
   padding-left: 10px;
   padding-right: 10px;
 
+  margin-top: 30px;
   margin-bottom: 10px;
   box-sizing: border-box;
 }

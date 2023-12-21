@@ -23,6 +23,7 @@ function Tree() {
         alt='tree'
         style={{
           pointerEvents: 'none',
+          marginBottom: 10,
         }}
       />
     </div>

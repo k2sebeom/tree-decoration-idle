@@ -5,6 +5,7 @@ import Tree from './components/Tree';
 import { NAME_MAPPING } from './utils/ornaments';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import Pallette, { PalletteCell } from './components/Pallette';
 
 
 function App() {
@@ -29,18 +30,18 @@ function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div style={{
+      <div className='container' style={{
         backgroundColor: '#DEA270',
       }}>
         <Tree />
 
-        <div className='grid-container'>
+        <Pallette>
           {Object.keys(NAME_MAPPING).map((name) => (
-            <div className='grid-item' key={name}>
+            <PalletteCell key={name}>
               <Ornament type='source' addOrnament={addOrnament} name={name} x={0} y={100} />
-            </div>
+            </PalletteCell>
           ))}
-        </div>
+        </Pallette>
     
         {
           ornaments.map((o, i) => {
