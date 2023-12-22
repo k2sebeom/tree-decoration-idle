@@ -2,6 +2,8 @@
   "name": "tree-deco-idle",
   "version": "0.1.0",
   "private": true,
+  "author": "SeBeom Lee",
+  "description": "Decorate your Christmas Tree on your Desktop",
   "homepage": "./",
   "main": "main.js",
   "dependencies": {

@@ -14,8 +14,7 @@ directories:
 
 mac:
   target:
-    - dmg
-    - default
+    - dir
   icon: assets/icon.icns
 
 win:
