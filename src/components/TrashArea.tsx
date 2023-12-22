@@ -25,7 +25,7 @@ function TrashArea({ isActive }: TrashAreaProps) {
       ref={drop}
       style={{
         position: 'absolute',
-        top: 5,
+        top: 30,
         right: isActive ? 5 : -60,
       }}
       className='moveArea'

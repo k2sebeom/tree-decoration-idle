@@ -23,6 +23,9 @@ img {
   position: relative;
   overflow: hidden;
 
+  padding-top: 25px;
+  box-sizing: border-box;
+
   transition:
     background-color 0.5s ease-out,
     height 1s ease-out;
@@ -64,5 +67,17 @@ img {
 }
 
 .prop {
+  -webkit-app-region: no-drag;
+}
+
+.tree {
+  -webkit-app-region: no-drag;
+}
+
+.dragArea {
+  -webkit-app-region: drag;
+}
+
+.noDragArea {
   -webkit-app-region: no-drag;
 }

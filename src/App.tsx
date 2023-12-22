@@ -44,7 +44,7 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <div className='container' style={{
         backgroundColor: menuActive ? '#DEA270' : 'transparent',
-        height: menuActive ? 850 : 420,
+        height: menuActive ? 875 : 420,
       }}>
         <Tree />
         {

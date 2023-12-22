@@ -14,7 +14,7 @@ function ClearButton({onClick, isActive}: ClearButtonProps) {
       onClick={onClick}
       style={{
         position: 'absolute',
-        top: 5,
+        top: 30,
         left: isActive ? 5 : -60,
       }}
     >

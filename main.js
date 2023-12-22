@@ -17,10 +17,13 @@ const devUrl = url.format({
 
 const resourcePath = process.env.NODE_ENV === 'dev' ? __dirname : process.resourcesPath;
 
+let win;
+let closeJob;
+
 const createWindow = () => {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 400,
-    height: 850,
+    height: 875,
     frame: false,
     autoHideMenuBar: true,
     skipTaskbar: true,
@@ -34,14 +37,17 @@ const createWindow = () => {
   });
 
   win.on('blur', () => {
-    setTimeout(() => {
+    closeJob = setTimeout(() => {
       win.setSize(400, 420);
     }, 1000);
     win.webContents.send("active-change", false);
   });
 
   win.on('focus', () => {
-    win.setSize(400, 850);
+    if (closeJob) {
+      clearTimeout(closeJob);
+    }
+    win.setSize(400, 875);
     win.webContents.send("active-change", true);
   });
 
@@ -50,10 +56,15 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   const tray = new Tray(path.join(resourcePath, 'assets', 'trayicon.png'));
-  tray.setToolTip('Waiting for Christmas...');
+  tray.setToolTip('그리숨었수.');
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Quit', type: 'normal', click: (menuItem, window, event) => {
-      app.quit()
+    { label: '닫기', type: 'normal', click: (menuItem, window, event) => {
+      app.quit();
+    }},
+    { label: '보기', type: 'normal', click: (menuItem, window, event) => {
+      if (win !== undefined) {
+        win.focus();
+      }
     }},
   ])
   tray.setContextMenu(contextMenu);

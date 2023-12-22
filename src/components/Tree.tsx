@@ -17,7 +17,7 @@ function Tree() {
   }))
 
   return (
-    <div ref={drop}>
+    <div className='tree' ref={drop}>
       <img
         width={400}
         src={treeImg}
