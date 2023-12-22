@@ -20,16 +20,21 @@ const resourcePath = process.env.NODE_ENV === 'dev' ? __dirname : process.resour
 let win;
 let closeJob;
 
+const WIDTH = 400;
+const SMALL_HEIGHT = 420;
+const BIG_HEIGHT = 875;
+
+
 const createWindow = () => {
   win = new BrowserWindow({
-    width: 400,
-    height: 875,
+    width: WIDTH,
+    height: SMALL_HEIGHT,
     frame: false,
     autoHideMenuBar: true,
     skipTaskbar: true,
     backgroundColor: '#00FFFFFF',
     transparent: true,
-    resizable: false,
+    resizable: true,
     fullscreenable: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -38,7 +43,7 @@ const createWindow = () => {
 
   win.on('blur', () => {
     closeJob = setTimeout(() => {
-      win.setSize(400, 420);
+      win.setSize(WIDTH, SMALL_HEIGHT);
     }, 1000);
     win.webContents.send("active-change", false);
   });
@@ -47,7 +52,7 @@ const createWindow = () => {
     if (closeJob) {
       clearTimeout(closeJob);
     }
-    win.setSize(400, 875);
+    win.setSize(WIDTH, BIG_HEIGHT);
     win.webContents.send("active-change", true);
   });
 
