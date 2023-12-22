@@ -21,4 +21,5 @@ mac:
 win:
   target:
     - portable
+    - nsis
   icon: assets/icon.ico
