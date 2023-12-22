@@ -62,7 +62,7 @@ const createWindow = () => {
     win.webContents.send("active-change", true);
   });
 
-  win.on('close', () => {
+  win.on('moved', () => {
     store.set('pos', win.getBounds());
   })
 
@@ -74,7 +74,7 @@ app.whenReady().then(() => {
   tray.setToolTip('그리숨었수.');
   const contextMenu = Menu.buildFromTemplate([
     { label: '닫기', type: 'normal', click: (menuItem, window, event) => {
-      win.close();
+      app.quit();
     }},
     { label: '보기', type: 'normal', click: (menuItem, window, event) => {
       if (win !== undefined) {
@@ -89,10 +89,4 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   app.quit()
-})
-
-app.on('before-quit', () => {
-  if(win !== undefined) {
-    store.set('pos', win.getBounds());
-  }
 })
