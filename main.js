@@ -1,7 +1,9 @@
 const { app, BrowserWindow, Tray, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
+const Store = require('electron-store');
 
+const store = new Store();
 
 const startUrl = url.format({
   pathname: path.join(__dirname, './build/index.html'),
@@ -26,7 +28,11 @@ const BIG_HEIGHT = 875;
 
 
 const createWindow = () => {
+  const bounds = store.get('pos');
+
   win = new BrowserWindow({
+    x: bounds?.x,
+    y: bounds?.y,
     width: WIDTH,
     height: SMALL_HEIGHT,
     frame: false,
@@ -56,6 +62,10 @@ const createWindow = () => {
     win.webContents.send("active-change", true);
   });
 
+  win.on('close', () => {
+    store.set('pos', win.getBounds());
+  })
+
   win.loadURL(process.env.NODE_ENV === 'dev' ? devUrl : startUrl);
 }
 
@@ -64,7 +74,7 @@ app.whenReady().then(() => {
   tray.setToolTip('그리숨었수.');
   const contextMenu = Menu.buildFromTemplate([
     { label: '닫기', type: 'normal', click: (menuItem, window, event) => {
-      app.quit();
+      win.close();
     }},
     { label: '보기', type: 'normal', click: (menuItem, window, event) => {
       if (win !== undefined) {
@@ -78,5 +88,5 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+  app.quit()
 })
