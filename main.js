@@ -90,3 +90,9 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   app.quit()
 })
+
+app.on('before-quit', () => {
+  if(win !== undefined) {
+    store.set('pos', win.getBounds());
+  }
+})
